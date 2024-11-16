@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#EDEBEB"
+    android:orientation="vertical"
+    tools:context=".registrar">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:elevation="8dp"
+        android:background="@drawable/estilofondoregistro">
+
+        <ImageButton
+            android:id="@+id/btn_regresar"
+            android:layout_width="47dp"
+            android:layout_height="46dp"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="0dp"
+            android:background="@null"
+            android:scaleType="fitCenter"
+            android:src="@drawable/retro" />
+
+        <ImageView
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_centerInParent="true"
+            android:src="@drawable/fondoblanco" />
+
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="30dp"
+        android:text="Regístrate"
+        android:fontFamily="@font/hanken_grotesks"
+        android:textColor="#868585"
+        android:textSize="35dp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="30dp"
+        android:text="Nombre"
+        android:textSize="18dp"
+        android:textColor="#868585"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/ed_nombre"
+        android:layout_width="334dp"
+        android:layout_height="40dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/hanken_grotesks"
+        android:elevation="8dp"
+        android:background="@drawable/estilotexto"
+        android:hint="Nombre"
+        android:inputType="text"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="20dp"
+        android:text="Apellido"
+        android:textSize="18dp"
+        android:textColor="#868585"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/ed_apellido"
+        android:layout_width="334dp"
+        android:layout_height="40dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="8dp"
+        android:elevation="8dp"
+        android:fontFamily="@font/hanken_grotesks"
+        android:background="@drawable/estilotexto"
+        android:hint="Apellido"
+        android:inputType="text"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="20dp"
+        android:text="Telefono"
+        android:textSize="18dp"
+        android:textColor="#868585"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/ed_telefono"
+        android:layout_width="334dp"
+        android:layout_height="40dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="8dp"
+        android:elevation="8dp"
+        android:fontFamily="@font/hanken_grotesks"
+        android:background="@drawable/estilotexto"
+        android:hint="999999999"
+        android:inputType="phone"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="20dp"
+        android:text="Email"
+        android:textSize="18dp"
+        android:textColor="#868585"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/ed_email"
+        android:layout_width="334dp"
+        android:layout_height="40dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="8dp"
+        android:elevation="8dp"
+        android:fontFamily="@font/hanken_grotesks"
+        android:background="@drawable/estilotexto"
+        android:hint="email@outlook.com"
+        android:inputType="textEmailAddress"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="20dp"
+        android:text="Contraseña"
+        android:textSize="18dp"
+        android:textColor="#868585"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/ed_contrasenia"
+        android:layout_width="334dp"
+        android:layout_height="40dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="8dp"
+        android:elevation="8dp"
+        android:fontFamily="@font/hanken_grotesks"
+        android:background="@drawable/estilotexto"
+        android:hint="Contraseña"
+        android:inputType="textPassword"/>
+
+    <Button
+        android:id="@+id/btn_registrar"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:fontFamily="@font/hanken_grotesks"
+        android:layout_marginTop="40dp"
+        android:backgroundTint="#EA5647"
+        android:text="Aceptar" />
+
+</LinearLayout>

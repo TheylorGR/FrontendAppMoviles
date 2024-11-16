@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#EDEBEB"
+    tools:context=".perfil">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageButton
+            android:id="@+id/btn_regresar"
+            android:layout_width="47dp"
+            android:layout_height="46dp"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="0dp"
+            android:background="@null"
+            android:scaleType="fitCenter"
+            android:src="@drawable/retro" />
+
+        <ImageView
+            android:layout_marginTop="40dp"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_centerInParent="true"
+            android:src="@drawable/perf" />
+
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/tv_nombre"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:textSize="20dp"
+        android:fontFamily="@font/hanken_grotesks"
+        android:text="hola" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Nombre"
+        android:textColor="#4A4A4A"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="30dp"/>
+
+    <EditText
+        android:id="@+id/ed_nombre"
+        android:layout_width="334dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="8dp"
+        android:elevation="8dp"
+        android:fontFamily="@font/hanken_grotesks"
+        android:background="@drawable/estilotexto"
+        android:hint="Nombre"
+        android:enabled="false"
+        android:inputType="text" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Apellido"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="30dp"/>
+
+    <EditText
+        android:id="@+id/ed_apellido"
+        android:layout_width="334dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="8dp"
+        android:enabled="false"
+        android:elevation="8dp"
+        android:fontFamily="@font/hanken_grotesks"
+        android:background="@drawable/estilotexto"
+        android:hint="Apellido"
+        android:inputType="text" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Telefono"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="30dp"/>
+
+    <EditText
+        android:id="@+id/ed_telefono"
+        android:layout_width="334dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="8dp"
+        android:enabled="false"
+        android:elevation="8dp"
+        android:fontFamily="@font/hanken_grotesks"
+        android:background="@drawable/estilotexto"
+        android:hint="999999999"
+        android:inputType="text" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Email"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="30dp"/>
+
+    <EditText
+        android:id="@+id/ed_email"
+        android:layout_width="334dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="8dp"
+        android:enabled="false"
+        android:elevation="8dp"
+        android:fontFamily="@font/hanken_grotesks"
+        android:background="@drawable/estilotexto"
+        android:hint="email@outlook.com"
+        android:inputType="text" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Direccion"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="30dp"/>
+
+    <EditText
+        android:id="@+id/ed_direccion"
+        android:layout_width="334dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="8dp"
+        android:enabled="false"
+        android:elevation="8dp"
+        android:fontFamily="@font/hanken_grotesks"
+        android:background="@drawable/estilotexto"
+        android:hint=""
+        android:inputType="text" />
+
+    <Button
+        android:id="@+id/btn_editar"
+        android:layout_width="213dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="6dp"
+        android:fontFamily="@font/hanken_grotesks"
+        android:backgroundTint="#F8B72A"
+        android:text="Editar perfil" />
+
+    <RelativeLayout
+        android:layout_marginTop="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:elevation="8dp"
+        android:background="@drawable/estilofondo">
+
+        <ImageButton
+            android:id="@+id/btn_menu"
+            android:layout_marginTop="10dp"
+            android:layout_width="40dp"
+            android:layout_height="50dp"
+            android:layout_marginBottom="5dp"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="30dp"
+            android:background="@null"
+            android:scaleType="fitCenter"
+            android:src="@drawable/menu" />
+
+        <ImageButton
+            android:id="@+id/btn_carrito"
+            android:layout_marginTop="10dp"
+            android:layout_width="45dp"
+            android:layout_height="55dp"
+            android:layout_marginLeft="175dp"
+            android:background="@null"
+            android:scaleType="fitCenter"
+            android:src="@drawable/carrito" />
+
+        <ImageButton
+            android:id="@+id/btn_perfil"
+            android:layout_marginTop="10dp"
+            android:layout_width="40dp"
+            android:layout_height="50dp"
+            android:layout_alignParentStart="true"
+            android:layout_marginLeft="330dp"
+            android:background="@null"
+            android:scaleType="fitCenter"
+            android:src="@drawable/barraperf" />
+
+    </RelativeLayout>
+
+</LinearLayout>
