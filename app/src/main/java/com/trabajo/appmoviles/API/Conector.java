@@ -13,7 +13,11 @@ import retrofit2.http.Path;
 
 import com.trabajo.appmoviles.Modelos.Comida;
 import com.trabajo.appmoviles.Modelos.Direccion;
+import com.trabajo.appmoviles.Modelos.EstadoPedido;
 import com.trabajo.appmoviles.Modelos.Filtro;
+import com.trabajo.appmoviles.Modelos.MetodoPago;
+import com.trabajo.appmoviles.Modelos.Pedido;
+import com.trabajo.appmoviles.Modelos.TipoEntrega;
 import com.trabajo.appmoviles.Modelos.Usuarios;
 
 public interface Conector {
@@ -47,4 +51,16 @@ public interface Conector {
 
     @POST("/direccion/usuarios/{usuariosId}/direccion")
     Call<Direccion> agregarDireccion(@Path("usuariosId") Integer usuariosId, @Body Direccion direccion);
+
+    @GET("/metodo_pago")
+    Call<List<MetodoPago>> ObtenerMetodos(@Header("Cookie") String cookie);
+
+    @GET("/estado_pedido")
+    Call<List<EstadoPedido>> obtenerTodosLosEstados(@Header("Cookie") String cookie);
+
+    @GET("/tipo_entrega")
+    Call<List<TipoEntrega>> ObtenerTipoEntrega(@Header("Cookie") String cookie);
+
+    @POST("/pedido")
+    Call<Pedido> registrarPedido(@Body Pedido pedido);
 }

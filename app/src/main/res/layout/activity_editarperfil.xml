@@ -37,6 +37,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:textSize="20dp"
+        android:textStyle="bold"
         android:fontFamily="@font/hanken_grotesks"
         android:text="hola" />
 
@@ -45,6 +46,8 @@
         android:layout_height="wrap_content"
         android:text="Nombre"
         android:textColor="#949494"
+        android:textStyle="bold"
+        android:fontFamily="@font/hanken_grotesks"
         android:layout_marginLeft="40dp"
         android:layout_marginTop="30dp"/>
 
@@ -67,6 +70,8 @@
         android:textColor="#949494"
         android:text="Apellido"
         android:layout_marginLeft="40dp"
+        android:textStyle="bold"
+        android:fontFamily="@font/hanken_grotesks"
         android:layout_marginTop="30dp"/>
 
     <EditText
@@ -87,7 +92,9 @@
         android:layout_height="wrap_content"
         android:textColor="#949494"
         android:text="Telefono"
+        android:textStyle="bold"
         android:layout_marginLeft="40dp"
+        android:fontFamily="@font/hanken_grotesks"
         android:layout_marginTop="30dp"/>
 
     <EditText
@@ -108,7 +115,9 @@
         android:layout_height="wrap_content"
         android:textColor="#949494"
         android:text="Email"
+        android:fontFamily="@font/hanken_grotesks"
         android:layout_marginLeft="40dp"
+        android:textStyle="bold"
         android:layout_marginTop="30dp"/>
 
     <EditText
@@ -129,13 +138,14 @@
         android:layout_height="100dp"
         android:layout_marginTop="30dp">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="#949494"
-        android:text="Direccion"
-        android:layout_marginLeft="40dp"
-        />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="40dp"
+            android:fontFamily="@font/hanken_grotesks"
+            android:text="Direccion"
+            android:textColor="#949494"
+            android:textStyle="bold" />
 
     <EditText
         android:id="@+id/ed_direccion"
@@ -172,7 +182,7 @@
         android:text="Aceptar" />
 
     <RelativeLayout
-        android:layout_marginTop="35dp"
+        android:layout_marginTop="25dp"
         android:elevation="8dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

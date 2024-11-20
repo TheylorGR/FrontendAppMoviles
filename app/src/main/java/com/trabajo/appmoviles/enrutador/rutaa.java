@@ -17,7 +17,8 @@ public class rutaa {
 
         OkHttpClient client = clientBuilder.build();
         retrofit = new Retrofit.Builder()
-                .baseUrl("http://192.168.1.107:8083/")
+                //ruta para emulador de pc
+                .baseUrl("http://10.0.2.2:8083/")
                 .client(client)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();

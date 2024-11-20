@@ -23,7 +23,7 @@ import java.util.Map;
 public class carrito extends AppCompatActivity {
 
     TextView tvSubtotal;
-    ImageButton btn_menu, btn_carrito, btn_perfil;
+    ImageButton btn_menu, btn_carrito, btn_perfil, btn_regresar;
     RecyclerView recyclerViewCarrito;
     AdaptadorCarrito carritoAdapter;
     List<Comida> listaCarrito;
@@ -35,6 +35,7 @@ public class carrito extends AppCompatActivity {
         setContentView(R.layout.activity_carrito);
 
         btn_menu = findViewById(R.id.btn_menu);
+        btn_regresar = findViewById(R.id.btn_regresar);
         btn_carrito = findViewById(R.id.btn_carrito);
         btn_perfil = findViewById(R.id.btn_perfil);
         btnIrAComprar = findViewById(R.id.btn_ir_comprar);
@@ -64,6 +65,9 @@ public class carrito extends AppCompatActivity {
             }
         });
 
+        // Cargar las comidas del carrito desde SharedPreferences
+        cargarComidasDelCarrito();
+
         // Cambiar de pantallas
         btn_direccion.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -81,11 +85,28 @@ public class carrito extends AppCompatActivity {
             }
         });
 
+        // Botón del carrito (ya estás en el carrito)
+        btn_regresar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent regresar = new Intent(carrito.this, Menu.class);
+                startActivity(regresar);
+            }
+        });
+
         // Botón para ir a comprar
         btnIrAComprar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(carrito.this, Comprar.class);
+                // Calcular el subtotal antes de pasar a la actividad Comprar
+                double subtotal = 0.0;
+                for (Comida comida : listaCarrito) {
+                    subtotal += comida.getPrecio() * comida.getCantidad();
+                }
+
+                // Crear un Intent para iniciar la actividad de compra y pasar el subtotal
+                Intent intent = new Intent(carrito.this, compra.class);
+                intent.putExtra("subtotal", subtotal);  // Pasar el subtotal como extra
                 startActivity(intent);
             }
         });
@@ -117,14 +138,36 @@ public class carrito extends AppCompatActivity {
 
         // Notificar al adaptador que los datos han cambiado
         carritoAdapter.notifyDataSetChanged();
+
+        // Llamar a actualizarTotalFinal para que el subtotal se muestre al cargar los datos
+        actualizarTotalFinal();
     }
 
+    // Método para guardar el carrito actualizado en SharedPreferences
+    private void guardarCarritoEnSharedPreferences() {
+        SharedPreferences prefs = getSharedPreferences("Carrito", MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefs.edit();
+        Gson gson = new Gson();
+
+        // Guardar cada comida como JSON en SharedPreferences
+        editor.clear();  // Limpiar los datos anteriores
+        for (Comida comida : listaCarrito) {
+            String comidaJson = gson.toJson(comida);
+            editor.putString("Comida_" + comida.getId(), comidaJson);  // Usar el ID de la comida como clave
+        }
+        editor.apply();  // Guardar los cambios
+    }
+
+    // Callback para actualizar el subtotal en la interfaz
     public void actualizarTotalFinal() {
         double total = 0.0;
         for (Comida comida : listaCarrito) {
             total += comida.getPrecio() * comida.getCantidad();  // Multiplicar precio por cantidad
         }
         tvSubtotal.setText("Total: S/ " + String.format("%.2f", total));
+
+        // Guardar el carrito actualizado cada vez que se calcule el total
+        guardarCarritoEnSharedPreferences();
     }
 }
 

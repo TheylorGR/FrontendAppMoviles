@@ -18,6 +18,9 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".compra"
+            android:exported="false" />
+        <activity
             android:name=".Mapa_pedido"
             android:exported="false" />
 
@@ -29,7 +32,7 @@
             android:name=".mapa"
             android:exported="false" />
         <activity
-            android:name=".Comprar"
+            android:name=".Resumen"
             android:exported="false" />
         <activity
             android:name=".editarperfil"

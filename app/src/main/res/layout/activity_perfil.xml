@@ -147,14 +147,13 @@
         android:layout_width="213dp"
         android:layout_height="50dp"
         android:layout_gravity="center"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="6dp"
+        android:layout_marginTop="20dp"
         android:fontFamily="@font/hanken_grotesks"
-        android:backgroundTint="#F8B72A"
-        android:text="Editar perfil" />
+        android:backgroundTint="#EA5647"
+        android:text="Editar" />
 
     <RelativeLayout
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:elevation="8dp"

@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#EDEBEB"
+    tools:context=".compra">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageButton
+            android:id="@+id/btn_regresar"
+            android:layout_width="47dp"
+            android:layout_height="46dp"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="0dp"
+            android:background="@null"
+            android:scaleType="fitCenter"
+            android:src="@drawable/retro" />
+
+        <ImageView
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_centerInParent="true"
+            android:src="@drawable/fondo" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_marginTop="50dp">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="40dp"
+        android:text="Metodo de pago"
+        android:fontFamily="@font/hanken_grotesks"
+        android:textSize="18dp"
+        android:textColor="#868585"
+        android:textStyle="bold" />
+
+    <Spinner
+        android:id="@+id/spn_metodo_pago"
+        android:layout_marginTop="25dp"
+        android:elevation="8dp"
+        android:layout_centerInParent="true"
+        android:layout_width="350dp"
+        android:layout_height="40dp"
+        android:background="@drawable/estilo_spin"/>
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginTop="40dp"
+            android:elevation="10dp"
+            android:layout_marginStart="350dp"
+            android:src="@drawable/scroll" />
+
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_marginTop="10dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="40dp"
+            android:text="Tipo de entrega"
+            android:textSize="18dp"
+            android:fontFamily="@font/hanken_grotesks"
+            android:textColor="#868585"
+            android:textStyle="bold" />
+
+        <Spinner
+            android:id="@+id/spn_tipo_entrega"
+            android:layout_marginTop="25dp"
+            android:elevation="8dp"
+            android:layout_centerInParent="true"
+            android:layout_width="350dp"
+            android:layout_height="40dp"
+            android:background="@drawable/estilo_spin"/>
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginTop="40dp"
+            android:elevation="10dp"
+            android:layout_marginStart="350dp"
+            android:src="@drawable/scroll" />
+
+    </RelativeLayout>
+</LinearLayout>
