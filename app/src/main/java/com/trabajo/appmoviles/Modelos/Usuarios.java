@@ -36,6 +36,10 @@ public class Usuarios implements Serializable {
         this.direcciones = direcciones != null ? direcciones : new ArrayList<>();
     }
 
+    public Usuarios(Integer id) {
+        this.id = id;
+    }
+
     public Integer getId() {
         return id;
     }

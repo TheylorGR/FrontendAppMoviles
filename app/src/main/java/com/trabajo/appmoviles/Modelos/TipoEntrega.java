@@ -15,6 +15,10 @@ public class TipoEntrega {
         this.costo = costo;
     }
 
+    public TipoEntrega(Integer id) {
+        this.id = id;
+    }
+
     public Integer getId() {
         return id;
     }

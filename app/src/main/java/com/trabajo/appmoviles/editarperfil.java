@@ -210,7 +210,7 @@ public class editarperfil extends AppCompatActivity {
                     ed_email.setText(usuario.getEmail());
                     tv_nombre.setText(usuario.getNombre() + " " + usuario.getApellido());
 
-                    cargarDirecciones(usuarioId);
+                    obtenerPrimeraDireccionPorUsuarioId();
                 } else {
                     Toast.makeText(editarperfil.this, "Error al cargar los datos", Toast.LENGTH_SHORT).show();
                 }
@@ -223,29 +223,38 @@ public class editarperfil extends AppCompatActivity {
         });
     }
 
-    private void cargarDirecciones(int usuarioId) {
-        Call<List<Direccion>> call = conector.obtenerDireccionesPorUsuarioId(usuarioId);
-        call.enqueue(new Callback<List<Direccion>>() {
-            @Override
-            public void onResponse(Call<List<Direccion>> call, Response<List<Direccion>> response) {
-                if (response.isSuccessful() && response.body() != null && !response.body().isEmpty()) {
-                    List<Direccion> direcciones = response.body();
-                    Direccion direccionActual = direcciones.get(0);
-                    ed_direccion.setText(direccionActual.getNombre_ubi());
-                    direccionId = direccionActual.getId();
-                    bdNombreCalle = direccionActual.getNombre_ubi();
-                    bdLat = direccionActual.getLatitud();
-                    bdLong = direccionActual.getLongitud();
-                } else {
-                    direccionId = null;
-                    Toast.makeText(editarperfil.this, "No hay direcciones disponibles", Toast.LENGTH_SHORT).show();
-                }
-            }
+    private void obtenerPrimeraDireccionPorUsuarioId() {
+        SharedPreferences preferences = getSharedPreferences("DatosUsuario", MODE_PRIVATE);
+        int usuarioId = preferences.getInt("usuarioId", -1);
 
-            @Override
-            public void onFailure(Call<List<Direccion>> call, Throwable t) {
-                Toast.makeText(editarperfil.this, "Error de conexión: " + t.getMessage(), Toast.LENGTH_LONG).show();
-            }
-        });
+        if (usuarioId != -1) {
+            // Hacer la llamada a tu nuevo endpoint
+            Call<Direccion> call = conector.obtenerPrimeraDireccionPorUsuarioId(usuarioId);
+            call.enqueue(new Callback<Direccion>() {
+                @Override
+                public void onResponse(Call<Direccion> call, Response<Direccion> response) {
+                    if (response.isSuccessful() && response.body() != null) {
+                        Direccion direccion = response.body();
+                        if (direccion != null && direccion.getNombre_ubi() != null) {
+                            ed_direccion.setText(direccion.getNombre_ubi());
+                        } else {
+                            ed_direccion.setText("No hay dirección disponible");
+                        }
+                    } else {
+                        // Manejo del error si la respuesta no es exitosa
+                        Toast.makeText(editarperfil.this, "Error al obtener la dirección: " + response.message(), Toast.LENGTH_SHORT).show();
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<Direccion> call, Throwable t) {
+                    // Manejo de error si la solicitud falla
+                    Toast.makeText(editarperfil.this, "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            });
+        } else {
+            // Error si no se tiene un ID de usuario válido
+            Toast.makeText(editarperfil.this, "Error: ID de usuario no válido", Toast.LENGTH_SHORT).show();
+        }
     }
 }

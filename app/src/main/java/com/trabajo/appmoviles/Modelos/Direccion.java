@@ -25,6 +25,10 @@ public class Direccion {
         this.usuarioId = usuarioId;
     }
 
+    public Direccion(Integer id) {
+        this.id = id;
+    }
+
     public Integer getId() {
         return id;
     }
@@ -64,4 +68,10 @@ public class Direccion {
     public void setUsuarioId(Integer usuarioId) {
         this.usuarioId = usuarioId;
     }
+
+    @Override
+    public String toString() {
+        return nombre_ubi;
+    }
+
 }

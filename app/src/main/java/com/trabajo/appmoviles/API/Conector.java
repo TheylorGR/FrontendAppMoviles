@@ -63,4 +63,9 @@ public interface Conector {
 
     @POST("/pedido")
     Call<Pedido> registrarPedido(@Body Pedido pedido);
+
+    @GET("/direccion/usuarios/{usuariosId}/primera")
+    Call<Direccion> obtenerPrimeraDireccionPorUsuarioId(@Path("usuariosId") int usuariosId);
+
+
 }

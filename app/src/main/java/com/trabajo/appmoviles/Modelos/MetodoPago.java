@@ -13,6 +13,10 @@ public class MetodoPago {
         this.metodoPago = metodoPago;
     }
 
+    public MetodoPago(Integer id) {
+        this.id = id;
+    }
+
     public Integer getId() {
         return id;
     }

@@ -4,7 +4,7 @@ import java.util.List;
 
 public class Pedido {
 
-    private int id;
+    private Integer id;
     private double totalCompra;
     private double total;
     private Usuarios usuario;
@@ -14,10 +14,9 @@ public class Pedido {
     private List<Comida> comidas;
     private Direccion direccion;
 
-    public Pedido() {
-    }
+    public Pedido() {}
 
-    public Pedido(int id, double totalCompra, double total, Usuarios usuario, EstadoPedido estado, MetodoPago metodoPago, TipoEntrega tipoEntrega, List<Comida> comidas, Direccion direccion) {
+    public Pedido(Integer id, double totalCompra, double total, Usuarios usuario, EstadoPedido estado, MetodoPago metodoPago, TipoEntrega tipoEntrega, List<Comida> comidas, Direccion direccion) {
         this.id = id;
         this.totalCompra = totalCompra;
         this.total = total;

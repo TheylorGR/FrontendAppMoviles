@@ -63,6 +63,7 @@
             android:src="@drawable/scroll" />
 
     </RelativeLayout>
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="100dp"
@@ -95,4 +96,70 @@
             android:src="@drawable/scroll" />
 
     </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_marginTop="10dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="40dp"
+            android:text="Dirección"
+            android:textSize="18dp"
+            android:fontFamily="@font/hanken_grotesks"
+            android:textColor="#868585"
+            android:textStyle="bold" />
+
+        <Spinner
+            android:id="@+id/spn_direccion"
+            android:layout_marginTop="25dp"
+            android:elevation="8dp"
+            android:layout_centerInParent="true"
+            android:layout_width="350dp"
+            android:layout_height="40dp"
+            android:background="@drawable/estilo_spin"/>
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginTop="40dp"
+            android:elevation="10dp"
+            android:layout_marginStart="350dp"
+            android:src="@drawable/scroll" />
+
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/tvSubtotal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="Subtotal"
+        android:textSize="18dp"
+        android:fontFamily="@font/hanken_grotesks"
+        android:textColor="#868585"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/tvTotal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="Subtotal"
+        android:textSize="18dp"
+        android:fontFamily="@font/hanken_grotesks"
+        android:textColor="#868585"
+        android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/btn_registrar_pedido"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:fontFamily="@font/hanken_grotesks"
+        android:layout_marginTop="40dp"
+        android:backgroundTint="#EA5647"
+        android:text="Aceptar" />
+
 </LinearLayout>

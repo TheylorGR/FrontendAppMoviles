@@ -41,7 +41,7 @@ public class AdaptadorCarrito extends RecyclerView.Adapter<AdaptadorCarrito.Carr
 
         holder.tvNombre.setText(comida.getNombre());
         holder.tvPrecio.setText("s/ " + calcularPrecioTotal(comida));
-        holder.tvCantidadProducto.setText(String.valueOf(comida.getCantidad()));
+        holder.tvCantidadProducto.setText(String.valueOf(comida.getCantidadSolicitada()));
 
         // Cargar la imagen de la comida usando Glide
         Glide.with(context)
@@ -56,12 +56,12 @@ public class AdaptadorCarrito extends RecyclerView.Adapter<AdaptadorCarrito.Carr
                 if (adapterPosition == RecyclerView.NO_POSITION) return;  // Evitar problemas si la posición no es válida
 
                 Comida comida = listaCarrito.get(adapterPosition);
-                int cantidadActual = comida.getCantidad();
+                int cantidadActual = comida.getCantidadSolicitada();
                 int stockDisponible = comida.getStock();
 
                 if (cantidadActual < stockDisponible) {
-                    comida.setCantidad(cantidadActual + 1);
-                    holder.tvCantidadProducto.setText(String.valueOf(comida.getCantidad()));
+                    comida.setCantidadSolicitada(cantidadActual + 1);
+                    holder.tvCantidadProducto.setText(String.valueOf(comida.getCantidadSolicitada()));
                     holder.tvPrecio.setText("s/ " + calcularPrecioTotal(comida));
 
                     notifyDataSetChanged();
@@ -80,11 +80,11 @@ public class AdaptadorCarrito extends RecyclerView.Adapter<AdaptadorCarrito.Carr
                 if (adapterPosition == RecyclerView.NO_POSITION) return;
 
                 Comida comida = listaCarrito.get(adapterPosition);
-                int cantidadActual = comida.getCantidad();
+                int cantidadActual = comida.getCantidadSolicitada();
 
                 if (cantidadActual > 1) {
-                    comida.setCantidad(cantidadActual - 1);
-                    holder.tvCantidadProducto.setText(String.valueOf(comida.getCantidad()));
+                    comida.setCantidadSolicitada(cantidadActual - 1);
+                    holder.tvCantidadProducto.setText(String.valueOf(comida.getCantidadSolicitada()));
                     holder.tvPrecio.setText("s/ " + calcularPrecioTotal(comida));
 
                     notifyDataSetChanged();
@@ -119,7 +119,7 @@ public class AdaptadorCarrito extends RecyclerView.Adapter<AdaptadorCarrito.Carr
 
     // Método para calcular el precio total del producto en el carrito (cantidad * precio unitario)
     private double calcularPrecioTotal(Comida comida) {
-        return comida.getPrecio() * comida.getCantidad();
+        return comida.getPrecio() * comida.getCantidadSolicitada();
     }
 
     // ViewHolder del carrito

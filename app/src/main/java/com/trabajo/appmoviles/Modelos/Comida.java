@@ -8,9 +8,9 @@ public class Comida {
     private String imagen;
     private Integer stock;
     private Filtro filtro;
-    private Integer cantidad;
+    private Integer cantidadSolicitada;
 
-    public Comida() {this.cantidad = 1;}
+    public Comida() {this.cantidadSolicitada = 1;}
 
     public Comida(Integer id, String nombre, Integer precio, String descripcion, String imagen, Integer stock, Filtro filtro) {
         this.id = id;
@@ -20,7 +20,12 @@ public class Comida {
         this.imagen = imagen;
         this.stock = stock;
         this.filtro = filtro;
-        this.cantidad = 1;
+        this.cantidadSolicitada = 1;
+    }
+
+    public Comida(Integer id, Integer cantidadSolicitada) {
+        this.id = id;
+        this.cantidadSolicitada = cantidadSolicitada;
     }
 
     public Integer getId() {
@@ -79,12 +84,12 @@ public class Comida {
         this.filtro = filtro;
     }
 
-    public Integer getCantidad() {
-        return cantidad;
+    public Integer getCantidadSolicitada() {
+        return cantidadSolicitada;
     }
 
-    public void setCantidad(Integer cantidad) {
-        this.cantidad = cantidad;
+    public void setCantidadSolicitada(Integer cantidadSolicitada) {
+        this.cantidadSolicitada = cantidadSolicitada;
     }
 
 }

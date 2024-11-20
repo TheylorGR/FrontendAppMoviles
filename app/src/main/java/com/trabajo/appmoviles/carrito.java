@@ -100,14 +100,30 @@ public class carrito extends AppCompatActivity {
             public void onClick(View v) {
                 // Calcular el subtotal antes de pasar a la actividad Comprar
                 double subtotal = 0.0;
+                ArrayList<Integer> comidasIds = new ArrayList<>();
+                ArrayList<Integer> cantidades = new ArrayList<>();
+
                 for (Comida comida : listaCarrito) {
-                    subtotal += comida.getPrecio() * comida.getCantidad();
+                    subtotal += comida.getPrecio() * comida.getCantidadSolicitada(); // Calcular subtotal
+                    comidasIds.add(comida.getId()); // Guardar el ID de la comida
+                    cantidades.add(comida.getCantidadSolicitada()); // Guardar la cantidad seleccionada
                 }
 
-                // Crear un Intent para iniciar la actividad de compra y pasar el subtotal
+                // Crear un Intent para iniciar la actividad de compra
                 Intent intent = new Intent(carrito.this, compra.class);
-                intent.putExtra("subtotal", subtotal);  // Pasar el subtotal como extra
+                intent.putExtra("subtotal", subtotal); // Pasar el subtotal como extra
+                intent.putIntegerArrayListExtra("comidasIds", comidasIds); // Pasar los IDs de las comidas
+                intent.putIntegerArrayListExtra("cantidades", cantidades); // Pasar las cantidades seleccionadas
                 startActivity(intent);
+
+                listaCarrito.clear();
+                carritoAdapter.notifyDataSetChanged();
+
+                // Vaciar los SharedPreferences
+                SharedPreferences prefs = getSharedPreferences("Carrito", MODE_PRIVATE);
+                SharedPreferences.Editor editor = prefs.edit();
+                editor.clear();  // Limpiar el carrito guardado
+                editor.apply();
             }
         });
 
@@ -119,6 +135,8 @@ public class carrito extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+
     }
 
     // Método para cargar las comidas del carrito desde SharedPreferences
@@ -162,13 +180,29 @@ public class carrito extends AppCompatActivity {
     public void actualizarTotalFinal() {
         double total = 0.0;
         for (Comida comida : listaCarrito) {
-            total += comida.getPrecio() * comida.getCantidad();  // Multiplicar precio por cantidad
+            total += comida.getPrecio() * comida.getCantidadSolicitada();  // Multiplicar precio por cantidad
         }
         tvSubtotal.setText("Total: S/ " + String.format("%.2f", total));
 
         // Guardar el carrito actualizado cada vez que se calcule el total
         guardarCarritoEnSharedPreferences();
     }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+
+        // Vaciar la lista del carrito y actualizar la vista
+        listaCarrito.clear();
+        carritoAdapter.notifyDataSetChanged();
+
+        // Vaciar SharedPreferences para limpiar el carrito
+        SharedPreferences prefs = getSharedPreferences("Carrito", MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.clear();  // Limpiar los datos guardados
+        editor.apply();   // Guardar los cambios
+    }
+
 }
 
 
