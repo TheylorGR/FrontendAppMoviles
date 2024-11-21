@@ -3,6 +3,7 @@ package com.trabajo.appmoviles;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -14,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.trabajo.appmoviles.API.Conector;
 import com.trabajo.appmoviles.Modelos.Direccion;
+import com.trabajo.appmoviles.Modelos.DireccionDTO;
 import com.trabajo.appmoviles.Modelos.Usuarios;
 import com.trabajo.appmoviles.enrutador.rutaa;
 
@@ -73,34 +75,39 @@ public class editarperfil extends AppCompatActivity {
         cargarDatosUsuario(emailUsuario);  // Cargar datos del usuario
 
         btn_aceptar.setOnClickListener(view -> {
-            // Obtén las nuevas coordenadas de dirección y nombre de calle
             double newLatitud = intent.getDoubleExtra("latitud", bdLat);
             double newLongitud = intent.getDoubleExtra("longitud", bdLong);
             String newNombreCalle = intent.getStringExtra("nombreCalle");
 
-            // Si la nueva calle es nula, se usa el nombre de calle actual de bd
             if (newNombreCalle == null || newNombreCalle.trim().isEmpty()) {
-                newNombreCalle = bdNombreCalle;
+                newNombreCalle = bdNombreCalle; // Usa la dirección actual si no hay una nueva
             }
 
-            // Verifica si hay cambios en los detalles de la dirección antes de actualizar
-            if (direccionId != null) {
-                if (!bdNombreCalle.equals(newNombreCalle) ||
-                        bdLat != newLatitud ||
-                        bdLong != newLongitud)
-                {
+            if (direccionId != null) { // Actualizar dirección existente
+                if (!bdNombreCalle.equals(newNombreCalle) || bdLat != newLatitud || bdLong != newLongitud) {
                     actualizarDireccion(direccionId, newNombreCalle, newLatitud, newLongitud);
+                } else {
+                    Toast.makeText(editarperfil.this, "No hay cambios en la dirección", Toast.LENGTH_SHORT).show();
                 }
-            } else {
-                if (newNombreCalle != null) {
+            } else { // Crear nueva dirección si no existe
+                if (!newNombreCalle.trim().isEmpty()) {
+                    Log.d("EditarPerfil", "direccionId: " + direccionId);
                     crearDireccion(usuarioId, newNombreCalle, newLatitud, newLongitud);
+                } else {
+                    Toast.makeText(editarperfil.this, "La dirección no puede estar vacía", Toast.LENGTH_SHORT).show();
+                    Log.d("EditarPerfil", "direccionId: " + direccionId);
+
                 }
             }
+
             actualizarDatosUsuario(emailUsuario);
         });
+
+
     }
 
     private void actualizarDatosUsuario(String email) {
+        // Paso 1: Actualizar datos del usuario
         Usuarios usuarioActualizado = new Usuarios();
         usuarioActualizado.setNombre(ed_nombre.getText().toString());
         usuarioActualizado.setApellido(ed_apellido.getText().toString());
@@ -113,8 +120,31 @@ public class editarperfil extends AppCompatActivity {
             public void onResponse(Call<Usuarios> call, Response<Usuarios> response) {
                 if (response.isSuccessful()) {
                     Toast.makeText(editarperfil.this, "Datos actualizados con éxito", Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(editarperfil.this, perfil.class));
-                    finish();
+
+                    // Paso 2: Actualizar la dirección si es necesario
+                    if (direccionId != null) {
+                        double newLatitud = getIntent().getDoubleExtra("latitud", bdLat);
+                        double newLongitud = getIntent().getDoubleExtra("longitud", bdLong);
+                        String newNombreCalle = getIntent().getStringExtra("nombreCalle");
+
+                        if (newNombreCalle == null || newNombreCalle.trim().isEmpty()) {
+                            newNombreCalle = bdNombreCalle; // Usa la dirección actual si no hay una nueva
+                        }
+
+                        // Actualizar dirección solo si hay cambios
+                        if (!bdNombreCalle.equals(newNombreCalle) || bdLat != newLatitud || bdLong != newLongitud) {
+                            actualizarDireccion(direccionId, newNombreCalle, newLatitud, newLongitud);
+                        } else {
+                            // Si no hay cambios, solo navega a la actividad perfil
+                            navegarPerfil();
+                        }
+                    } else {
+                        // Si no hay dirección, crea una nueva
+                        String newNombreCalle = getIntent().getStringExtra("nombreCalle");
+                        double newLatitud = getIntent().getDoubleExtra("latitud", bdLat);
+                        double newLongitud = getIntent().getDoubleExtra("longitud", bdLong);
+                        crearDireccion(usuarioId, newNombreCalle, newLatitud, newLongitud);
+                    }
                 } else {
                     Toast.makeText(editarperfil.this, "Error al actualizar los datos", Toast.LENGTH_SHORT).show();
                 }
@@ -139,8 +169,7 @@ public class editarperfil extends AppCompatActivity {
             public void onResponse(Call<Direccion> call, Response<Direccion> response) {
                 if (response.isSuccessful()) {
                     Toast.makeText(editarperfil.this, "Dirección actualizada con éxito", Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(editarperfil.this, perfil.class));
-                    finish();
+                    navegarPerfil(); // Navegar a perfil después de actualizar la dirección
                 } else {
                     Toast.makeText(editarperfil.this, "Error al actualizar dirección", Toast.LENGTH_SHORT).show();
                 }
@@ -165,8 +194,7 @@ public class editarperfil extends AppCompatActivity {
             public void onResponse(Call<Direccion> call, Response<Direccion> response) {
                 if (response.isSuccessful()) {
                     Toast.makeText(editarperfil.this, "Dirección creada con éxito", Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(editarperfil.this, perfil.class));
-                    finish();
+                    navegarPerfil(); // Navegar a perfil después de crear la dirección
                 } else {
                     Toast.makeText(editarperfil.this, "Error al crear dirección", Toast.LENGTH_SHORT).show();
                 }
@@ -224,37 +252,55 @@ public class editarperfil extends AppCompatActivity {
     }
 
     private void obtenerPrimeraDireccionPorUsuarioId() {
-        SharedPreferences preferences = getSharedPreferences("DatosUsuario", MODE_PRIVATE);
-        int usuarioId = preferences.getInt("usuarioId", -1);
+        int usuarioId = obtenerusuarioIdlocal(); // Obtener el usuario ID desde SharedPreferences
 
         if (usuarioId != -1) {
-            // Hacer la llamada a tu nuevo endpoint
-            Call<Direccion> call = conector.obtenerPrimeraDireccionPorUsuarioId(usuarioId);
-            call.enqueue(new Callback<Direccion>() {
+            Call<DireccionDTO> call = conector.obtenerPrimeraDireccionDTOPorUsuarioId(usuarioId);
+            call.enqueue(new Callback<DireccionDTO>() {
                 @Override
-                public void onResponse(Call<Direccion> call, Response<Direccion> response) {
+                public void onResponse(Call<DireccionDTO> call, Response<DireccionDTO> response) {
                     if (response.isSuccessful() && response.body() != null) {
-                        Direccion direccion = response.body();
-                        if (direccion != null && direccion.getNombre_ubi() != null) {
-                            ed_direccion.setText(direccion.getNombre_ubi());
+                        DireccionDTO direccionDTO = response.body();
+                        Log.d("EditarPerfil", "Respuesta de la dirección: " + direccionDTO);
+
+                        // Verifica si hay datos de dirección
+                        if (direccionDTO.getId() != null) {
+                            direccionId = direccionDTO.getId(); // Guarda el ID para actualizaciones futuras
+                            bdNombreCalle = direccionDTO.getNombre_ubi();
+                            bdLat = direccionDTO.getLatitud();
+                            bdLong = direccionDTO.getLongitud();
+
+                            // Muestra la dirección en los campos de texto
+                            ed_direccion.setText(bdNombreCalle);
                         } else {
-                            ed_direccion.setText("No hay dirección disponible");
+                            Log.e("EditarPerfil", "Respuesta no exitosa: " + response.message());
+                            direccionId = null;
+                            bdNombreCalle = null;
+                            bdLat = 0;
+                            bdLong = 0;
                         }
                     } else {
-                        // Manejo del error si la respuesta no es exitosa
-                        Toast.makeText(editarperfil.this, "Error al obtener la dirección: " + response.message(), Toast.LENGTH_SHORT).show();
+                        direccionId = null;
+                        Toast.makeText(editarperfil.this, "No se encontró una dirección", Toast.LENGTH_SHORT).show();
                     }
                 }
 
                 @Override
-                public void onFailure(Call<Direccion> call, Throwable t) {
-                    // Manejo de error si la solicitud falla
+                public void onFailure(Call<DireccionDTO> call, Throwable t) {
                     Toast.makeText(editarperfil.this, "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
                 }
             });
         } else {
-            // Error si no se tiene un ID de usuario válido
-            Toast.makeText(editarperfil.this, "Error: ID de usuario no válido", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Error: ID de usuario no válido", Toast.LENGTH_SHORT).show();
         }
     }
+
+    private void navegarPerfil() {
+        // Navegar a la actividad de perfil
+        Intent intent = new Intent(editarperfil.this, perfil.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+        finish(); // Finaliza la actividad de editarperfil
+    }
+
 }

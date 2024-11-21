@@ -13,11 +13,13 @@ import retrofit2.http.Path;
 
 import com.trabajo.appmoviles.Modelos.Comida;
 import com.trabajo.appmoviles.Modelos.Direccion;
+import com.trabajo.appmoviles.Modelos.DireccionDTO;
 import com.trabajo.appmoviles.Modelos.EstadoPedido;
 import com.trabajo.appmoviles.Modelos.Filtro;
 import com.trabajo.appmoviles.Modelos.MetodoPago;
 import com.trabajo.appmoviles.Modelos.Pedido;
 import com.trabajo.appmoviles.Modelos.TipoEntrega;
+import com.trabajo.appmoviles.Modelos.UsuarioDTO;
 import com.trabajo.appmoviles.Modelos.Usuarios;
 
 public interface Conector {
@@ -67,5 +69,11 @@ public interface Conector {
     @GET("/direccion/usuarios/{usuariosId}/primera")
     Call<Direccion> obtenerPrimeraDireccionPorUsuarioId(@Path("usuariosId") int usuariosId);
 
+    @GET("/direccion/usuarios/{usuariosId}/primera/dir")
+    Call<DireccionDTO> obtenerPrimeraDireccionDTOPorUsuarioId(@Path("usuariosId") int usuariosId);
+
+    // Obtener UsuarioDTO por email
+    @GET("/usuarios/perfil/{email}")
+    Call<UsuarioDTO> obtenerPerfilUsuario(@Path("email") String email);
 
 }

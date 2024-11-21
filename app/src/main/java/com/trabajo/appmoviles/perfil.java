@@ -3,8 +3,6 @@ package com.trabajo.appmoviles;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -14,11 +12,9 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.trabajo.appmoviles.API.Conector;
-import com.trabajo.appmoviles.Modelos.Direccion;
-import com.trabajo.appmoviles.Modelos.Usuarios;
+import com.trabajo.appmoviles.Modelos.DireccionDTO;
+import com.trabajo.appmoviles.Modelos.UsuarioDTO;
 import com.trabajo.appmoviles.enrutador.rutaa;
-
-import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -101,66 +97,36 @@ public class perfil extends AppCompatActivity {
     }
 
     private void obtenerInfoUsuario(String email) {
-        Call<Usuarios> call = conector.obtenerUsuarioemail(email);
-        call.enqueue(new Callback<Usuarios>() {
+        Call<UsuarioDTO> call = conector.obtenerPerfilUsuario(email);
+        call.enqueue(new Callback<UsuarioDTO>() {
             @Override
-            public void onResponse(Call<Usuarios> call, Response<Usuarios> response) {
+            public void onResponse(Call<UsuarioDTO> call, Response<UsuarioDTO> response) {
                 if (response.isSuccessful() && response.body() != null) {
-                    Usuarios user = response.body();
+                    UsuarioDTO usuarioDTO = response.body();
 
-                    tv_nombre.setText("Bienvenido/a " + user.getNombre() + " " + user.getApellido());
-                    ed_nombre.setText(user.getNombre());
-                    ed_apellido.setText(user.getApellido());
-                    ed_telefono.setText(user.getTelefono());
-                    ed_email.setText(user.getEmail());
+                    // Setear datos del usuario
+                    tv_nombre.setText("Bienvenido/a " + usuarioDTO.getNombre() + " " + usuarioDTO.getApellido());
+                    ed_nombre.setText(usuarioDTO.getNombre());
+                    ed_apellido.setText(usuarioDTO.getApellido());
+                    ed_telefono.setText(usuarioDTO.getTelefono());
+                    ed_email.setText(usuarioDTO.getEmail());
 
-                    obtenerPrimeraDireccionPorUsuarioId();
-
+                    // Setear la dirección si está disponible
+                    if (usuarioDTO.getDireccion() != null && usuarioDTO.getDireccion().getNombre_ubi() != null) {
+                        ed_direccion.setText(usuarioDTO.getDireccion().getNombre_ubi());
+                    } else {
+                        ed_direccion.setText("No hay dirección disponible");
+                    }
                 } else {
-                    Toast.makeText(perfil.this, "Error al obtener los detalles", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(perfil.this, "Error al obtener los detalles: " + response.message(), Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
-            public void onFailure(Call<Usuarios> call, Throwable t) {
+            public void onFailure(Call<UsuarioDTO> call, Throwable t) {
                 Toast.makeText(perfil.this, "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
-    }
-
-    private void obtenerPrimeraDireccionPorUsuarioId() {
-        SharedPreferences preferences = getSharedPreferences("DatosUsuario", MODE_PRIVATE);
-        int usuarioId = preferences.getInt("usuarioId", -1);
-
-        if (usuarioId != -1) {
-            // Hacer la llamada a tu nuevo endpoint
-            Call<Direccion> call = conector.obtenerPrimeraDireccionPorUsuarioId(usuarioId);
-            call.enqueue(new Callback<Direccion>() {
-                @Override
-                public void onResponse(Call<Direccion> call, Response<Direccion> response) {
-                    if (response.isSuccessful() && response.body() != null) {
-                        Direccion direccion = response.body();
-                        if (direccion != null && direccion.getNombre_ubi() != null) {
-                            ed_direccion.setText(direccion.getNombre_ubi());
-                        } else {
-                            ed_direccion.setText("No hay dirección disponible");
-                        }
-                    } else {
-                        // Manejo del error si la respuesta no es exitosa
-                        Toast.makeText(perfil.this, "Error al obtener la dirección: " + response.message(), Toast.LENGTH_SHORT).show();
-                    }
-                }
-
-                @Override
-                public void onFailure(Call<Direccion> call, Throwable t) {
-                    // Manejo de error si la solicitud falla
-                    Toast.makeText(perfil.this, "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
-                }
-            });
-        } else {
-            // Error si no se tiene un ID de usuario válido
-            Toast.makeText(perfil.this, "Error: ID de usuario no válido", Toast.LENGTH_SHORT).show();
-        }
     }
 
 }
