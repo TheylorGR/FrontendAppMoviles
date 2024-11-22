@@ -9,11 +9,28 @@
     android:orientation="vertical"
     tools:context=".Menu">
 
-    <ImageView
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        android:layout_gravity="center"
-        android:src="@drawable/fondo" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageButton
+            android:id="@+id/btn_pedidos"
+            android:layout_width="47dp"
+            android:layout_height="46dp"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="30dp"
+            android:layout_marginTop="30dp"
+            android:background="@null"
+            android:scaleType="fitCenter"
+            android:src="@drawable/listaa" />
+
+        <ImageView
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_centerInParent="true"
+            android:src="@drawable/fondo" />
+
+    </RelativeLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewFiltro"

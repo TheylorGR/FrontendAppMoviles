@@ -3,7 +3,6 @@ package com.trabajo.appmoviles;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.Toast;
@@ -23,7 +22,7 @@ import retrofit2.Response;
 
 public class Menu extends AppCompatActivity {
 
-    ImageButton btn_menu, btn_carrito, btn_perfil;
+    ImageButton btn_menu, btn_carrito, btn_perfil, btn_pedido;
     RecyclerView recyclerViewComidas, recyclerViewFiltros;
     AdaptadorComida comidaAdapter;
     AdaptadorFiltro filtroAdapter;
@@ -46,6 +45,7 @@ public class Menu extends AppCompatActivity {
         btn_menu = findViewById(R.id.btn_menu);
         btn_carrito = findViewById(R.id.btn_carrito);
         btn_perfil = findViewById(R.id.btn_perfil);
+        btn_pedido = findViewById(R.id.btn_pedidos);
 
         // Configurar RecyclerView para las comidas
         recyclerViewComidas = findViewById(R.id.recyclerViewComidas);
@@ -84,6 +84,14 @@ public class Menu extends AppCompatActivity {
             public void onClick(View view) {
                 Intent perf = new Intent(Menu.this, perfil.class);
                 startActivity(perf);
+            }
+        });
+
+        btn_pedido.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent res = new Intent(Menu.this, Resumen.class);
+                startActivity(res);
             }
         });
 

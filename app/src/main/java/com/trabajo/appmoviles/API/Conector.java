@@ -76,4 +76,8 @@ public interface Conector {
     @GET("/usuarios/perfil/{email}")
     Call<UsuarioDTO> obtenerPerfilUsuario(@Path("email") String email);
 
+    //Obtener pedidos asociados a un userID
+    @GET("/pedido/usuario/{usuarioId}")
+    Call<List<Pedido>> obtenerPedidosPorUsuario(@Path("usuarioId") int usuarioId);
+
 }

@@ -31,8 +31,19 @@
 
     </RelativeLayout>
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:fontFamily="@font/hanken_grotesks"
+        android:text="Lista de pedidos"
+        android:textColor="#000000"
+        android:textSize="30dp"
+        android:textStyle="bold" />
+
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerViewDetalleCompra"
+        android:id="@+id/recyclerViewListaPedidos"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
@@ -42,7 +53,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="400dp"
+        android:layout_height="300dp"
         android:layout_marginTop="20dp"
         android:elevation="8dp"
         android:background="@drawable/estilofondo"
@@ -58,6 +69,25 @@
             android:text="Resumen de Compra"
             android:textColor="#FFFBFB"
             android:textSize="30dp"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:id="@+id/contenedorComidas"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="16dp" />
+
+        <TextView
+            android:id="@+id/tvTotalConsumido"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/hanken_grotesks"
+            android:text="Total Consumido: $0.00"
+            android:textColor="#FFFBFB"
+            android:textSize="20dp"
             android:textStyle="bold" />
 
     </LinearLayout>
